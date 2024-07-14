@@ -1,47 +1,64 @@
 import { useForm } from "react-hook-form";
-import "./AddExpenseForm.css"
+import { z } from 'zod'
+import { zodResolver } from "@hookform/resolvers/zod"
+import "./AddExpenseForm.css";
+
+const schema = z.object({
+  description: z.string().min(3),
+  amount: z.number({invalid_type_error: "This field is required!"}).min(1, {message: "The amount must be at least 1!"}),
+  category: z.number().min(1, {message: "You need to pick a category!"})
+})
+
+type FormData = z.infer<typeof schema>
 
 export const AddExpenseForm = () => {
-  const { register } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm<FormData>( {resolver: zodResolver(schema)} );
 
   return (
-    <form className="add-expense-form"action="">
+    <form onSubmit={handleSubmit(data => console.log(data))} className="add-expense-form" action="">
       <div className="form-group">
         <label htmlFor="description" className="form-label">
-          Description
+          Description*
         </label>
         <input
+          { ...register("description") }
           id="description-field"
           name="description"
           type="text"
           className="form-control"
         />
+        {errors.description && <p className="text-danger">{errors.description.message}</p>}
       </div>
       <div className="form-group">
         <label htmlFor="amount" className="form-label">
-          Amount
+          Amount*
         </label>
         <input
+          {...register("amount", {valueAsNumber: true})}
           id="amount-field"
           name="amount"
           type="number"
           className="form-control"
         />
+        {errors.amount && <p className="text-danger">{errors.amount.message}</p>}
       </div>
       <div className="form-group">
         <label htmlFor="category" className="form-label">
           Category
         </label>
-        <select id="category-select" name="category" className="form-control">
-          <option disabled selected value={undefined}></option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
+        <select { ...register("category", {valueAsNumber: true}) } defaultValue={0} id="category-select" name="category" className="form-control">
+          <option disabled={true} value={0}></option>
+          <option value={1}>1</option>
+          <option value={2}>2</option>
+          <option value={3}>3</option>
+          <option value={4}>4</option>
+          <option value={5}>5</option>
         </select>
+        {errors.category && <p className="text-danger">{errors.category.message}</p>}
       </div>
-      <button type="submit" className="btn btn-primary">Submit</button>
+      <button type="submit" className="btn btn-primary">
+        Submit
+      </button>
     </form>
   );
 };
