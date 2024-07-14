@@ -1,14 +1,37 @@
-import "./ExpensesTable.css"
+import { Expense } from "../AddExpenseForm";
+import "./ExpensesTable.css";
 
-export const ExpensesTable = () => {
+interface Props {
+  expenses: Expense[];
+  categories: string[];
+  selectedIndex?: number;
+}
+
+export const ExpensesTable = ({
+  categories,
+  selectedIndex = -1,
+  expenses,
+}: Props) => {
+
+  let filteredExpenses: Expense[];
+  if (selectedIndex < 0 || categories.length <= selectedIndex)
+    filteredExpenses = [...expenses];
+  else
+    filteredExpenses = expenses.filter(
+      (e) => e.category === categories[selectedIndex]
+    );
+
   return (
     <div className="expenses-table">
-      <select className="form-control" name="category-filter" id="category-filter">
-        <option value={0}>Option 0</option>
-        <option value={1}>Option 1</option>
-        <option value={2}>Option 2</option>
-        <option value={3}>Option 3</option>
-        <option value={4}>Option 4</option>
+      <select
+        className="form-control"
+        name="category-filter"
+        id="category-filter"
+      >
+        <option value={0}>All categories</option>
+        {categories.map((cat, i) => (
+          <option value={i}>{cat}</option>
+        ))}
       </select>
 
       <table className="table table-bordered">
@@ -21,38 +44,20 @@ export const ExpensesTable = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>d0001</td>
-            <td>d0002</td>
-            <td>d0003</td>
-            <td>d0004</td>
-          </tr>
-          <tr>
-            <td>d0001</td>
-            <td>d0002</td>
-            <td>d0003</td>
-            <td>d0004</td>
-          </tr>
-          <tr>
-            <td>d0001</td>
-            <td>d0002</td>
-            <td>d0003</td>
-            <td>d0004</td>
-          </tr>
-          <tr>
-            <td>d0001</td>
-            <td>d0002</td>
-            <td>d0003</td>
-            <td>d0004</td>
-          </tr>
-          <tr>
-            <td>d0001</td>
-            <td>d0002</td>
-            <td>d0003</td>
-            <td>d0004</td>
-          </tr>
+          {filteredExpenses.map((e) => (
+            <tr>
+              <td>{e.description}</td>
+              <td>{e.amount}</td>
+              <td>{e.category}</td>
+              <td>
+                <button className="btn btn-danger" type="button">
+                  Delete
+                </button>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
-  )
-}
+  );
+};

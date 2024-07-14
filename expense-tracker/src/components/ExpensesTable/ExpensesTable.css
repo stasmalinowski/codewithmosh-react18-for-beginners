@@ -3,3 +3,14 @@
   flex-direction: column;
   gap: 1em;
 }
+
+/* .expenses-table td{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} */
+
+.expenses-table th, .expenses-table td{
+  text-align: center;
+  vertical-align: baseline;
+}
