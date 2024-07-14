@@ -1,6 +1,8 @@
+import { AddExpenseForm } from "./components/AddExpenseForm"
+
 const App = () => {
   return (
-    <div>App</div>
+    <AddExpenseForm />
   )
 }
 
