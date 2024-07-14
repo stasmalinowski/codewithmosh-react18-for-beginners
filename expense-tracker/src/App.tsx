@@ -1,8 +1,10 @@
 import { AddExpenseForm } from "./components/AddExpenseForm"
 
 const App = () => {
+  const categories = ["Fun", "Food", "Transport", "Housing"]
+
   return (
-    <AddExpenseForm />
+    <AddExpenseForm categories={categories}/>
   )
 }
 
