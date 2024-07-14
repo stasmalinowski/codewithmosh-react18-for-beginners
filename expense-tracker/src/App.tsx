@@ -1,10 +1,10 @@
-import { AddExpenseForm } from "./components/AddExpenseForm"
+import { Expense, AddExpenseForm } from "./components/AddExpenseForm"
 
 const App = () => {
   const categories = ["Fun", "Food", "Transport", "Housing"]
 
   return (
-    <AddExpenseForm categories={categories}/>
+    <AddExpenseForm onSubmit={expense => console.log(expense)} categories={categories}/>
   )
 }
 

@@ -1,3 +1,2 @@
-import { AddExpenseForm } from "./AddExpenseForm";
-
-export { AddExpenseForm }
+export { AddExpenseForm } from "./AddExpenseForm";
+export type { Expense } from "./AddExpenseForm"

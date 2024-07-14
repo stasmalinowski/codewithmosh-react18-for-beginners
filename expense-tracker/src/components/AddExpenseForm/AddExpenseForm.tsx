@@ -3,8 +3,15 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import "./AddExpenseForm.css";
 
+export interface Expense{
+  description: string,
+  amount: number,
+  category: string 
+}
+  
 interface Props {
   categories: string[];
+  onSubmit: (expense: Expense) => void
 }
 
 const schema = z.object({
@@ -17,7 +24,7 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-export const AddExpenseForm = ({ categories }: Props) => {
+export const AddExpenseForm = ({ categories, onSubmit }: Props) => {
   const {
     register,
     handleSubmit,
@@ -26,7 +33,14 @@ export const AddExpenseForm = ({ categories }: Props) => {
 
   return (
     <form
-      onSubmit={handleSubmit((data) => console.log(data))}
+      onSubmit={handleSubmit((data) => {
+        const expense: Expense = {
+          description: data.description,
+          amount: data.amount,
+          category: categories[data.category]
+        }
+        onSubmit(expense);
+      })}
       className="add-expense-form"
       action=""
     >
