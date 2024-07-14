@@ -1,9 +1,5 @@
-body{
-  padding: 20px;
-}
-
-main{
+.expenses-table{
   display: flex;
   flex-direction: column;
-  gap: 3em;
+  gap: 1em;
 }
