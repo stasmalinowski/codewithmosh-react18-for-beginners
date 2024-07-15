@@ -34,10 +34,11 @@ export const AddExpenseForm = ({ categories, onSubmit }: Props) => {
   return (
     <form
       onSubmit={handleSubmit((data) => {
+        console.log(data)
         const expense: Expense = {
           description: data.description,
           amount: data.amount,
-          category: categories[data.category]
+          category: categories[data.category - 1]
         }
         onSubmit(expense);
       })}

@@ -10,16 +10,24 @@ const App = () => {
     "Housing",
   ]);
 
-  const [expenses, setExpenses] = useState([
-    { description: "Cinema", amount: 15, category: "Fun" },
-    { description: "Burgers", amount: 30, category: "Food" },
-    { description: "Bus Tickets", amount: 10, category: "Transport" },
-    { description: "Train Tickets", amount: 20, category: "Transport" },
-    { description: "Rent", amount: 550, category: "Housing" },
-    { description: "Drinks", amount: 30, category: "Food" },
-  ]);
+  const [expenses, setExpenses] = useState<Expense[]>([]);
 
   const [selectedCategory, setSelectedCategory] = useState("");
+
+  const getExpensesCopy = () => {
+    return[
+      ...expenses.map((e: Expense) => {
+        return { ...e };
+      }),
+    ];
+  }
+
+  const addExpense = (expense: Expense) =>{
+    console.log(expense)
+    const expensesCopy = getExpensesCopy()
+    expensesCopy.push(expense)
+    setExpenses(expensesCopy)
+  }
 
   const handleCategoryFilterChange = (
     event: ChangeEvent<HTMLSelectElement>
@@ -27,13 +35,9 @@ const App = () => {
     setSelectedCategory(event.target.value);
   };
 
-  const handleExpenseDelete = (expense: Expense) => {
-    const expensesCopy = [
-      ...expenses.map((e: Expense) => {
-        return { ...e };
-      }),
-    ];
-    setExpenses(expensesCopy.filter((e: Expense) => {
+  const deleteExpense = (expense: Expense) => {
+
+    setExpenses(getExpensesCopy().filter((e: Expense) => {
       return (e.description !== expense.description || e.amount !== expense.amount || e.category !== expense.category)
     }));
   };
@@ -41,13 +45,13 @@ const App = () => {
   return (
     <main>
       <AddExpenseForm
-        onSubmit={(expense) => console.log(expense)}
+        onSubmit={addExpense}
         categories={categories}
       />
       <ExpensesTable
         selectedCategory={selectedCategory}
         handleChange={handleCategoryFilterChange}
-        handleDelete={handleExpenseDelete}
+        handleDelete={deleteExpense}
         categories={categories}
         expenses={expenses}
       />
