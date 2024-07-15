@@ -6,6 +6,7 @@ interface Props {
   expenses: Expense[];
   categories: string[];
   handleChange: (event: ChangeEvent<HTMLSelectElement>) => void;
+  handleDelete: (expense: Expense) => void
   selectedCategory?: string;
 }
 
@@ -14,6 +15,7 @@ export const ExpensesTable = ({
   selectedCategory = "All",
   expenses,
   handleChange,
+  handleDelete
 }: Props) => {
   let selectedCategoryValue = "All";
   let filteredExpenses: Expense[] = [...expenses];
@@ -57,7 +59,7 @@ export const ExpensesTable = ({
               <td key={e.amount}>{e.amount}</td>
               <td key={e.category}>{e.category}</td>
               <td>
-                <button className="btn btn-danger" type="button">
+                <button onClick={event => handleDelete(e)} className="btn btn-danger" type="button">
                   Delete
                 </button>
               </td>
