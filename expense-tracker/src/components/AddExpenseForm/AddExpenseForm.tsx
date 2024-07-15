@@ -2,8 +2,10 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import "./AddExpenseForm.css";
+import { generateExpenseId } from "../../utils/generateExpenseId";
 
 export interface Expense{
+  id: number,
   description: string,
   amount: number,
   category: string 
@@ -36,6 +38,7 @@ export const AddExpenseForm = ({ categories, onSubmit }: Props) => {
       onSubmit={handleSubmit((data) => {
         console.log(data)
         const expense: Expense = {
+          id: generateExpenseId(),
           description: data.description,
           amount: data.amount,
           category: categories[data.category - 1]

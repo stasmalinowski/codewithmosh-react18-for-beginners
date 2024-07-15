@@ -36,10 +36,7 @@ const App = () => {
   };
 
   const deleteExpense = (expense: Expense) => {
-
-    setExpenses(getExpensesCopy().filter((e: Expense) => {
-      return (e.description !== expense.description || e.amount !== expense.amount || e.category !== expense.category)
-    }));
+    setExpenses(getExpensesCopy().filter((e: Expense) => e.id != expense.id));
   };
 
   return (
