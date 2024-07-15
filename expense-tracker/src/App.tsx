@@ -1,16 +1,24 @@
+import { ChangeEvent, useState } from "react";
 import { Expense, AddExpenseForm } from "./components/AddExpenseForm";
 import { ExpensesTable } from "./components/ExpensesTable";
 
 const App = () => {
-  const categories = ["Fun", "Food", "Transport", "Housing"];
-  const expenses = [
-    { description: "Cinema", amount: 15, category: categories[0] },
-    { description: "Burgers", amount: 30, category: categories[1] },
-    { description: "Bus Tickets", amount: 10, category: categories[2] },
-    { description: "Train Tickets", amount: 20, category: categories[2] },
-    { description: "Rent", amount: 550, category: categories[3] },
-    { description: "Drinks", amount: 30, category: categories[1] }
-  ];
+  const [ categories, setCategories ] = useState(["Fun", "Food", "Transport", "Housing"])
+  
+  const [ expenses, setExpenses ] = useState([
+    { description: "Cinema", amount: 15, category: "Fun" },
+    { description: "Burgers", amount: 30, category: "Food" },
+    { description: "Bus Tickets", amount: 10, category: "Transport" },
+    { description: "Train Tickets", amount: 20, category: "Transport" },
+    { description: "Rent", amount: 550, category: "Housing" },
+    { description: "Drinks", amount: 30, category: "Food" }
+  ]);
+
+  const [ selectedCategory, setSelectedCategory ] = useState("")
+
+  const handleCategoryFilterChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    setSelectedCategory(event.target.value)
+  }
 
   return (
     <main>
@@ -18,7 +26,7 @@ const App = () => {
         onSubmit={(expense) => console.log(expense)}
         categories={categories}
       />
-      <ExpensesTable categories={categories} expenses={expenses} />
+      <ExpensesTable selectedCategory={selectedCategory} handleChange={handleCategoryFilterChange} categories={categories} expenses={expenses} />
     </main>
   );
 };
