@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react";
 import { ProductList } from "./components/ProductList";
 import apiClient, { CanceledError } from "./services/api-client";
+import userService, { User } from "./services/user-service";
 
-interface User {
-  id: number;
-  name: string;
-}
 
 const App = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -15,7 +12,9 @@ const App = () => {
   const deleteUser = (user: User) => {
     const originalUsers = [...users]
     setUsers(users.filter(u => u.id != user.id))
-    apiClient.delete("/posts/" + user.id)
+
+    const { request } = userService.deleteUser(user)
+    request
       .catch(err => {
         setError(err.message)
         setUsers(originalUsers)
@@ -23,13 +22,10 @@ const App = () => {
   }
 
   useEffect(() => {
-    const controller = new AbortController();
-
     setIsLoading(true)
-    apiClient
-      .get("/users", {
-        signal: controller.signal,
-      })
+
+    const { request, cancel } = userService.getAllUsers()
+    request 
       .then((res) => {
         setUsers(res.data);
         setError("");
@@ -41,7 +37,7 @@ const App = () => {
         setIsLoading(false)
       });
 
-    return () => controller.abort();
+    return () => cancel();
   }, []);
 
   return (
