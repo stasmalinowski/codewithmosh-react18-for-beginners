@@ -8,9 +8,19 @@ interface User {
 }
 
 const App = () => {
-  const [users, setUsers] = useState<User[]>();
+  const [users, setUsers] = useState<User[]>([]);
   const [error, setError] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false)
+
+  const deleteUser = (user: User) => {
+    const originalUsers = [...users]
+    setUsers(users.filter(u => u.id != user.id))
+    axios.delete("https://jsonplaceholder.typicode.comx/posts/" + user.id)
+      .catch(err => {
+        setError(err.message)
+        setUsers(originalUsers)
+      })
+  }
 
   useEffect(() => {
     const controller = new AbortController();
@@ -36,13 +46,14 @@ const App = () => {
 
   return (
     <>
-      {error && <p className="text-danger">{error}</p>}
+      <p className="text-danger">{error}</p>
       {isLoading && <div className="spinner-border" role="status"></div>}
-      <ul>
+      <ul className="list-group">
         {!error &&
           users?.map((u) => (
-            <li key={u.id}>
+            <li className="list-group-item d-flex justify-content-between align-items-center" key={u.id}>
               Id: {u.id}, Name: {u.name}
+              <button className="btn btn-outline-danger" onClick={() => deleteUser(u)}>Delete</button>
             </li>
           ))}
       </ul>
