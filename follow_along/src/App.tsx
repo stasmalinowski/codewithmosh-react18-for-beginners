@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { ProductList } from "./components/ProductList";
-import axios, { AxiosError } from "axios";
+import axios, { AxiosError, CanceledError } from "axios";
 
 interface User {
   id: number;
@@ -10,24 +10,34 @@ interface User {
 const App = () => {
   const [users, setUsers] = useState<User[]>();
   const [error, setError] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
-    (async () => {
-      try {
-        const res = await axios.get<User[]>(
-          "https://jsonplaceholder.typicode.com/users"
-        );
+    const controller = new AbortController();
+
+    setIsLoading(true)
+    axios
+      .get("https://jsonplaceholder.typicode.com/users", {
+        signal: controller.signal,
+      })
+      .then((res) => {
         setUsers(res.data);
         setError("");
-      } catch (err) {
-        setError((err as AxiosError).message);
-      }
-    })();
+        setIsLoading(false)
+      })
+      .catch((err) => {
+        if (err instanceof CanceledError) return;
+        setError(err.message);
+        setIsLoading(false)
+      });
+
+    return () => controller.abort();
   }, []);
 
   return (
     <>
       {error && <p className="text-danger">{error}</p>}
+      {isLoading && <div className="spinner-border" role="status"></div>}
       <ul>
         {!error &&
           users?.map((u) => (
