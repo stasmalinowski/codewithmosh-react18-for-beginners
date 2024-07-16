@@ -13,7 +13,7 @@ const App = () => {
     const originalUsers = [...users]
     setUsers(users.filter(u => u.id != user.id))
 
-    const { request } = userService.deleteUser(user)
+    const { request } = userService.delete<User>(user)
     request
       .catch(err => {
         setError(err.message)
@@ -24,7 +24,7 @@ const App = () => {
   useEffect(() => {
     setIsLoading(true)
 
-    const { request, cancel } = userService.getAllUsers()
+    const { request, cancel } = userService.getAll<User>()
     request 
       .then((res) => {
         setUsers(res.data);
