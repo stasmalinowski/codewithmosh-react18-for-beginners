@@ -1,0 +1,7 @@
+services:
+  frontend:
+    build: ./
+    ports:
+      - 8080:80
+    environment:
+      - VITE_RAWG_API_KEY=<api key>
