@@ -1,4 +1,4 @@
-import apiClient from "./api-client";
+import { HttpService } from "./http-service";
 
 export interface Platform {
   id: number;
@@ -25,11 +25,15 @@ interface GameApiResponse {
 }
 
 class GameService{
-  async getAll(): Promise<Game[]>{
-    const response = await apiClient
-      .get<GameApiResponse>("/games"); 
+  httpService: HttpService;
+  
+  constructor(){
+    this.httpService = new HttpService("/games")
+  }
 
-    return response.data.results
+  async getAll(): Promise<Game[]>{
+    const response = await this.httpService.getAll<GameApiResponse>()
+    return response.results
   }
 }
 
