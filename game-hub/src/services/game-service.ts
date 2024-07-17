@@ -11,10 +11,10 @@ interface Game {
   slug: string;
   name: string;
   released: Date;
-  backgroundImage: string;
+  background_image: string;
   rating: number;
-  ratingTop: number;
-  ratingsCount: number;
+  rating_top: number;
+  ratings_count: number;
   platforms: { platform: Platform; releasedAt: string; requirements: any };
 }
 
