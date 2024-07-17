@@ -12,7 +12,7 @@ export const useGames = () => {
         setError("")
       })
       .catch((err) => setError(err.message));
-  });
+  }, []);
 
   return {games, setGames, error, setError}
 }
