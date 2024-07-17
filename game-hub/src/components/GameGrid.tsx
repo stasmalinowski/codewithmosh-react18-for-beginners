@@ -46,7 +46,7 @@ export const GameGrid = () => {
       {error && <Text>{error}</Text>}
       <ul>
         {games.map((g) => (
-          <li>{g.name}</li>
+          <li key={g.id}>{g.name}</li>
         ))}
       </ul>
     </>
