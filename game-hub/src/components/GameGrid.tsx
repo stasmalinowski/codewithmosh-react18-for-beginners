@@ -1,9 +1,20 @@
+import { useState, useEffect } from "react";
+import GameService, { Game } from "../services/game-service";
 import { Text } from "@chakra-ui/react";
-import { useGames } from "../hooks/useGames";
 
 
 export const GameGrid = () => {
-  const {games, error} = useGames()
+  const [games, setGames] = useState<Game[]>([]);
+  const [error, setError] = useState<string>("");
+
+  useEffect(() => {
+    GameService.getAll()
+      .then((games) => {
+        setGames(games);
+        setError("")
+      })
+      .catch((err) => setError(err.message));
+  });
 
   return (
     <>
