@@ -1,6 +1,7 @@
-import { Card, Heading, Image, CardBody } from "@chakra-ui/react"
+import { Card, Heading, Image, CardBody, Text } from "@chakra-ui/react"
 import { Game } from "../services/game-service"
 import imagePlaceholder from "../assets/no-image-placeholder-6f3882e0.webp"
+import { PlatformIconList } from "./PlatformIconList"
 
 interface Props{
   game: Game
@@ -9,9 +10,10 @@ interface Props{
 export const GameCard = ({ game }: Props) => {
   return (
     <Card borderRadius={10} overflow={"hidden"}>
-      <Image src={game.background_image + "xxxxx"} fallbackSrc={imagePlaceholder}/>
+      <Image src={game.background_image} fallbackSrc={imagePlaceholder}/>
       <CardBody>
-        <Heading size={"xl"}>{game.name}</Heading>
+        <Heading size={"l"}>{game.name}</Heading>
+        <PlatformIconList platforms={game.parent_platforms.map(p => p.platform)}/>
       </CardBody>
     </Card>
   )

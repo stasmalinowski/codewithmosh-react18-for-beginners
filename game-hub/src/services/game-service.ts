@@ -1,12 +1,12 @@
 import apiClient from "./api-client";
 
-interface Platform {
+export interface Platform {
   id: number;
   slug: string;
   name: string;
 }
 
-interface Game {
+export interface Game {
   id: number;
   slug: string;
   name: string;
@@ -16,6 +16,7 @@ interface Game {
   rating_top: number;
   ratings_count: number;
   platforms: { platform: Platform; releasedAt: string; requirements: any };
+  parent_platforms: {platform: Platform}[]
 }
 
 interface GameApiResponse {
@@ -35,5 +36,3 @@ class GameService{
 }
 
 export default new GameService()
-
-export type { Game }
