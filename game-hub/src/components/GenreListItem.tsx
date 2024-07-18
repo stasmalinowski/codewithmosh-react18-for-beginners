@@ -1,4 +1,4 @@
-import { Button, HStack, Image, ListItem, Text } from "@chakra-ui/react";
+import { Button, HStack, Image, ListItem } from "@chakra-ui/react";
 import { Genre } from "../services/genre-service";
 import { getCroppedImageUrl } from "../utils/image-utils";
 
