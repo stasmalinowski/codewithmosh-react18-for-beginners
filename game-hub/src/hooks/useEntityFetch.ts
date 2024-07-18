@@ -18,7 +18,6 @@ export function useEntityFetch<Entity>(service: EntityFetchService<Entity>): {en
         setError(err.message);
         setIsLoading(false)
       });
-      return service.abort
   }, []);
 
   return { entities, error, isLoading };
