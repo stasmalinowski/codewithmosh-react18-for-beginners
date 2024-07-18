@@ -3,7 +3,7 @@ import { NavBar } from "./components/NavBar"
 import { GameGrid } from "./components/GameGrid"
 import { GenreList } from "./components/GenreList"
 import { useState } from "react"
-import { Genre } from "./services/genre-service"
+import { Genre } from "./services/http-service"
 
 function App() {
   const [ selectedGenre, setSelectedGenre ] = useState<Genre | null>(null)

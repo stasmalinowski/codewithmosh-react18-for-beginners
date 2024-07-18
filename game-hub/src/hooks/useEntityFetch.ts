@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { EntityFetchService } from "../services/http-service";
+import { HttpService } from "../services/http-service";
 
 export function useEntityFetch<Entity>(
-  service: EntityFetchService<Entity>,
+  endpoint: string,
   deps?: any[],
   params?: object
 ): { entities: Entity[]; error: string; isLoading: boolean } {
@@ -10,10 +10,12 @@ export function useEntityFetch<Entity>(
   const [error, setError] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  const service = new HttpService(endpoint)
+  
   useEffect(() => {
     setIsLoading(true);
     service
-      .getAll(params)
+      .getAll<Entity>(params)
       .then((e) => {
         setEntities(e);
         setError("");

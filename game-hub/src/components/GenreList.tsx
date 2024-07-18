@@ -2,7 +2,7 @@ import { List } from "@chakra-ui/react";
 import { useGenres } from "../hooks/useGenres";
 import { GenreListItem } from "./GenreListItem";
 import { GenreListItemSkeleton } from "./GenreListItemSkeleton";
-import { Genre } from "../services/genre-service";
+import { Genre } from "../services/http-service";
 
 interface Props{
   onSelect: (genre: Genre) => void

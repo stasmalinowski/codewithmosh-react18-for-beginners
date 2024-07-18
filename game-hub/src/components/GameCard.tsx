@@ -1,9 +1,9 @@
 import { Card, Heading, Image, CardBody, HStack } from "@chakra-ui/react"
-import { Game } from "../services/game-service"
 import imagePlaceholder from "../assets/no-image-placeholder-6f3882e0.webp"
 import { PlatformIconList } from "./PlatformIconList"
 import { CriticScore } from "./CriticScore"
 import { getCroppedImageUrl } from "../utils/image-utils"
+import { Game } from "../services/http-service"
 
 interface Props{
   game: Game

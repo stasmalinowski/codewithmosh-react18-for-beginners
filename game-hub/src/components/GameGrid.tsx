@@ -3,7 +3,7 @@ import { useGames } from "../hooks/useGames";
 import { GameCard } from "./GameCard";
 import { GameCardSkeleton } from "./GameCardSkeleton";
 import { GameCardContainer } from "./GameCardContainer";
-import { Genre } from "../services/genre-service";
+import { Genre } from "../services/http-service";
 
 interface Props{
   selectedGenre: Genre | null
