@@ -3,14 +3,15 @@ import { useGames } from "../hooks/useGames";
 import { GameCard } from "./GameCard";
 import { GameCardSkeleton } from "./GameCardSkeleton";
 import { GameCardContainer } from "./GameCardContainer";
-import { Genre } from "../services/http-service";
+import { Genre, Platform } from "../services/http-service";
 
 interface Props{
   selectedGenres: Genre[]
+  selectedPlatform: Platform | null
 }
 
-export const GameGrid = ({ selectedGenres }: Props) => {
-  const { games, error, isLoading } = useGames(selectedGenres);
+export const GameGrid = ({ selectedGenres, selectedPlatform }: Props) => {
+  const { games, error, isLoading } = useGames(selectedGenres, selectedPlatform);
   const skeletons: number[] = [];
   for (let i = 0; i < 30; i++) skeletons.push(i);
 
