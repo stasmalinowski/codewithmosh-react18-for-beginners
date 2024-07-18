@@ -1,15 +1,20 @@
 import { Game, Genre, Platform } from "../services/http-service";
 import { useEntityFetch } from "./useEntityFetch";
 
-export const useGames = (selectedGenres?: Genre[], selectedPlatform?: Platform | null) => {
+export interface GameQuery {
+  genres: Genre[],
+  platform: Platform | null
+}
+
+export const useGames = (gameQuery: GameQuery) => {
   const params: { [param: string]: string | null } = {
     genres: null,
     parent_platforms: null
   }
 
-  if (selectedGenres !== undefined && selectedGenres.length !== 0) params.genres = selectedGenres.map(g => g.id).join(",");
-  if (selectedPlatform !== null && selectedPlatform !== undefined)  params.parent_platforms = `${selectedPlatform?.id}` 
+  if (gameQuery.genres !== undefined && gameQuery.genres.length !== 0) params.genres = gameQuery.genres.map(g => g.id).join(",");
+  if (gameQuery.platform !== null && gameQuery.platform !== undefined)  params.parent_platforms = `${gameQuery.platform?.id}` 
 
-  const {entities, error, isLoading} = useEntityFetch<Game>("/games", [ selectedGenres, selectedPlatform ], params)
+  const {entities, error, isLoading} = useEntityFetch<Game>("/games", [ gameQuery ], params)
   return { games: entities, error, isLoading };
 };

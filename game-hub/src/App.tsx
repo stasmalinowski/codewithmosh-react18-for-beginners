@@ -3,19 +3,22 @@ import { NavBar } from "./components/NavBar"
 import { GameGrid } from "./components/GameGrid"
 import { GenreList } from "./components/GenreList"
 import { useState } from "react"
-import { Genre, Platform } from "./services/http-service"
+import { Genre } from "./services/http-service"
 import { PlatformSelector } from "./components/PlatformSelector"
+import { GameQuery } from "./hooks/useGames"
 
 function App() {
-  const [ selectedGenres, setSelectedGenres ] = useState<Genre[]>([])
-  const [ selectedPlatform, setSelectedPlatform ] = useState<Platform | null>(null)
+  const [ gameQuery, setGameQuery ] = useState<GameQuery>({
+    genres: [],
+    platform: null
+  } as GameQuery)
 
   const toggleGenre = (genre: Genre) => {
-    if (selectedGenres.includes(genre)){
-      setSelectedGenres(selectedGenres.filter(g => g != genre))
+    if (gameQuery.genres.includes(genre)){
+      setGameQuery({ ...gameQuery, genres: gameQuery.genres.filter(g => g != genre)})
     }
     else {
-      setSelectedGenres([...selectedGenres, genre])
+      setGameQuery({ ...gameQuery, genres: [ ...gameQuery.genres, genre ] })
     }
   }
 
@@ -32,12 +35,12 @@ function App() {
         <NavBar />      </GridItem>
       <Show above="lg">
         <GridItem paddingX={5} area="aside" outline={"dashed red"}>
-          <GenreList selectedGenres={selectedGenres} onSelect={toggleGenre}/>
+          <GenreList selectedGenres={gameQuery.genres} onSelect={toggleGenre}/>
         </GridItem>
       </Show>
       <GridItem area="main" outline={"dashed red"}>
-        <PlatformSelector selectedPlatform={selectedPlatform} onSelect={setSelectedPlatform} />
-        <GameGrid selectedPlatform={selectedPlatform} selectedGenres={selectedGenres} />
+        <PlatformSelector selectedPlatform={gameQuery.platform} onSelect={(p) => setGameQuery( { ...gameQuery, platform: p } )} />
+        <GameGrid gameQuery={gameQuery}/>
       </GridItem>
     </Grid>
   )
