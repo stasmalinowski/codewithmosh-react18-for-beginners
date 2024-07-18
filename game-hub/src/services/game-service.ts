@@ -1,4 +1,4 @@
-import { HttpService } from "./http-service";
+import { EntityFetchService, HttpService } from "./http-service";
 
 export interface Platform {
   id: number;
@@ -24,7 +24,7 @@ interface GameApiResponse {
   results: Game[];
 }
 
-class GameService{
+class GameService implements EntityFetchService<Game>{
   httpService: HttpService;
   
   constructor(){
@@ -34,6 +34,10 @@ class GameService{
   async getAll(): Promise<Game[]>{
     const response = await this.httpService.getAll<GameApiResponse>()
     return response.results
+  }
+
+  abort(){
+    this.httpService.abort()
   }
 }
 

@@ -1,4 +1,4 @@
-import { HttpService } from "./http-service";
+import { EntityFetchService, HttpService } from "./http-service";
 
 export interface Genre{
   id: number,
@@ -10,7 +10,7 @@ interface GenreApiResponse{
   results: Genre[]
 }
 
-class GenreService{
+class GenreService implements EntityFetchService<Genre>{
   httpService: HttpService;
 
   constructor(){
@@ -20,6 +20,10 @@ class GenreService{
   async getAll(): Promise<Genre[]>{
     const response = await this.httpService.getAll<GenreApiResponse>()
     return response.results
+  }
+
+  abort(){
+    this.httpService.abort()
   }
 }
 
