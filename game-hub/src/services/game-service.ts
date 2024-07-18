@@ -31,8 +31,8 @@ class GameService implements EntityFetchService<Game>{
     this.httpService = new HttpService("/games")
   }
 
-  async getAll(params?: object): Promise<Game[]>{
-    const response = await this.httpService.getAll<GameApiResponse>(params ? params : {})
+  async getAll(): Promise<Game[]>{
+    const response = await this.httpService.getAll<GameApiResponse>()
     return response.results
   }
 
