@@ -3,10 +3,12 @@ import { NavBar } from "./components/NavBar"
 import { GameGrid } from "./components/GameGrid"
 import { GenreList } from "./components/GenreList"
 import { useState } from "react"
-import { Genre } from "./services/http-service"
+import { Genre, Platform } from "./services/http-service"
+import { PlatformSelector } from "./components/PlatformSelector"
 
 function App() {
   const [ selectedGenres, setSelectedGenres ] = useState<Genre[]>([])
+  const [ selectedPlatform, setSelectedPlatform ] = useState<Platform | null>(null)
 
   const toggleGenre = (genre: Genre) => {
     if (selectedGenres.includes(genre)){
@@ -34,6 +36,7 @@ function App() {
         </GridItem>
       </Show>
       <GridItem area="main" outline={"dashed red"}>
+        <PlatformSelector selectedPlatform={selectedPlatform} onSelect={setSelectedPlatform} />
         <GameGrid selectedGenres={selectedGenres} />
       </GridItem>
     </Grid>
