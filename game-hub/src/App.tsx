@@ -6,14 +6,14 @@ import { useState } from "react"
 import { Genre } from "./services/http-service"
 
 function App() {
-  const [ selectedGenre, setSelectedGenre ] = useState<Genre | null>(null)
+  const [ selectedGenres, setSelectedGenres ] = useState<Genre[]>([])
 
   const toggleGenre = (genre: Genre) => {
-    if (selectedGenre == genre){
-      setSelectedGenre(null)
+    if (selectedGenres.includes(genre)){
+      setSelectedGenres(selectedGenres.filter(g => g != genre))
     }
     else {
-      setSelectedGenre(genre)
+      setSelectedGenres([...selectedGenres, genre])
     }
   }
 
@@ -30,11 +30,11 @@ function App() {
         <NavBar />      </GridItem>
       <Show above="lg">
         <GridItem paddingX={5} area="aside" outline={"dashed red"}>
-          <GenreList selectedGenre={selectedGenre} onSelect={toggleGenre}/>
+          <GenreList selectedGenres={selectedGenres} onSelect={toggleGenre}/>
         </GridItem>
       </Show>
       <GridItem area="main" outline={"dashed red"}>
-        <GameGrid selectedGenre={selectedGenre} />
+        <GameGrid selectedGenres={selectedGenres} />
       </GridItem>
     </Grid>
   )

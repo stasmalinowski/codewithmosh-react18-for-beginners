@@ -6,11 +6,11 @@ import { GameCardContainer } from "./GameCardContainer";
 import { Genre } from "../services/http-service";
 
 interface Props{
-  selectedGenre: Genre | null
+  selectedGenres: Genre[]
 }
 
-export const GameGrid = ({ selectedGenre }: Props) => {
-  const { games, error, isLoading } = useGames(selectedGenre);
+export const GameGrid = ({ selectedGenres }: Props) => {
+  const { games, error, isLoading } = useGames(selectedGenres);
   const skeletons: number[] = [];
   for (let i = 0; i < 30; i++) skeletons.push(i);
 

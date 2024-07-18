@@ -6,10 +6,10 @@ import { Genre } from "../services/http-service";
 
 interface Props{
   onSelect: (genre: Genre) => void
-  selectedGenre: Genre | null
+  selectedGenres: Genre[]
 }
 
-export const GenreList = ({ onSelect, selectedGenre }: Props) => {
+export const GenreList = ({ onSelect, selectedGenres }: Props) => {
   const { genres, error, isLoading } = useGenres();
   const skeletons: number[] = [];
   for (let i = 0; i < 15; i++) skeletons.push(i);
@@ -19,7 +19,7 @@ export const GenreList = ({ onSelect, selectedGenre }: Props) => {
       {error && <p>{error}</p>}
       <List>
         {!isLoading && genres.map((g) => (
-          <GenreListItem isHighlighted={g == selectedGenre} onClick={onSelect} key={g.id} genre={g} />
+          <GenreListItem isHighlighted={selectedGenres.includes(g)} onClick={onSelect} key={g.id} genre={g} />
         ))}
         {isLoading && skeletons.map(skel => (
           <GenreListItemSkeleton key={skel}/>
