@@ -38,8 +38,12 @@ function App() {
         lg: `200px 2fr`,
       }}
     >
-      <GridItem area="nav">
-      <NavBar onSearch={(searchString) => setGameQuery( {...gameQuery, searchString: searchString})} />
+      <GridItem marginBottom={5} area="nav">
+        <NavBar
+          onSearch={(searchString) =>
+            setGameQuery({ ...gameQuery, searchString: searchString })
+          }
+        />
       </GridItem>
       <Show above="lg">
         <GridItem paddingX={5} area="aside">
@@ -47,7 +51,7 @@ function App() {
         </GridItem>
       </Show>
       <GridItem area="main">
-        <HStack>
+        <HStack gap={5} marginBottom={5}>
           <PlatformSelector
             selectedPlatform={gameQuery.platform}
             onSelect={(p) => setGameQuery({ ...gameQuery, platform: p })}
