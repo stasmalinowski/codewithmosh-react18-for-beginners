@@ -1,4 +1,4 @@
-import { List } from "@chakra-ui/react";
+import { Heading, List } from "@chakra-ui/react";
 import { useGenres } from "../hooks/useGenres";
 import { GenreListItem } from "./GenreListItem";
 import { GenreListItemSkeleton } from "./GenreListItemSkeleton";
@@ -16,6 +16,7 @@ export const GenreList = ({ onSelect, selectedGenres }: Props) => {
 
   return (
     <>
+      <Heading as="h2" marginBottom={5}>Genres</Heading>
       {error && <p>{error}</p>}
       <List>
         {!isLoading && genres.map((g) => (

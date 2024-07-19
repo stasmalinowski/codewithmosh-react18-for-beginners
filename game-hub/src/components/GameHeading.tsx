@@ -13,7 +13,7 @@ export const GameHeading = ({ gameQuery }: Props) => {
         "Games" +
         (gameQuery.genres.length === 0
           ? ""
-          : ` in categories: ${gameQuery.genres
+          : ` in genres: ${gameQuery.genres
               .map((g) => g.name)
               .join(", ")}`
         )}

@@ -16,6 +16,7 @@ export const GenreListItem = ({ genre, isHighlighted, onClick }: Props) => {
           boxSize="32px"
           borderRadius={8}
           src={getCroppedImageUrl(genre.image_background, 600, 400)}
+          objectFit="cover"
         />
         <Button onClick={() => onClick(genre)} variant={"link"} whiteSpace="normal" textAlign="start">{genre.name}</Button>
       </HStack>
