@@ -5,6 +5,7 @@ export interface GameQuery {
   genres: Genre[],
   platform: Platform | null
   ordering: string
+  searchString: string | null
 }
 
 export interface OrderingSpec{
@@ -25,7 +26,8 @@ export const useGames = (gameQuery: GameQuery) => {
   const params: { [param: string]: string | null } = {
     genres: null,
     parent_platforms: null,
-    ordering: Orderings[gameQuery.ordering].param
+    ordering: Orderings[gameQuery.ordering].param,
+    search: gameQuery.searchString
   }
 
   if (gameQuery.genres !== undefined && gameQuery.genres.length !== 0) params.genres = gameQuery.genres.map(g => g.id).join(",");

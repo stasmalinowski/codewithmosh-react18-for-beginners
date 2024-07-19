@@ -1,4 +1,4 @@
-import { HStack, Stack, Switch, Text, useColorMode } from "@chakra-ui/react"
+import { Stack, Switch, Text, useColorMode } from "@chakra-ui/react"
 import { capitalize } from "../utils/misc"
 
 export const ColorModeSwitch = () => {
