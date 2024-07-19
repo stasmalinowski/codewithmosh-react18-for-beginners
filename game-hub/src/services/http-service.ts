@@ -13,7 +13,6 @@ export interface Game {
   released: Date;
   background_image: string;
   metacritic: number;
-  platforms: { platform: Platform; releasedAt: string; requirements: any };
   parent_platforms: {platform: Platform}[]
 }
 
