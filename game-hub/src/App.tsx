@@ -42,11 +42,11 @@ function App() {
       <NavBar onSearch={(searchString) => setGameQuery( {...gameQuery, searchString: searchString})} />
       </GridItem>
       <Show above="lg">
-        <GridItem paddingX={5} area="aside" outline={"dashed red"}>
+        <GridItem paddingX={5} area="aside">
           <GenreList selectedGenres={gameQuery.genres} onSelect={toggleGenre} />
         </GridItem>
       </Show>
-      <GridItem area="main" outline={"dashed red"}>
+      <GridItem area="main">
         <HStack>
           <PlatformSelector
             selectedPlatform={gameQuery.platform}
