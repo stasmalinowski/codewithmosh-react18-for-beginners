@@ -16,7 +16,7 @@ export const GenreList = ({ onSelect, selectedGenres }: Props) => {
 
   return (
     <>
-      <Heading as="h2" marginBottom={5}>Genres</Heading>
+      <Heading as="h2" marginBottom={5} fontSize={"3xl"}>Genres</Heading>
       {error && <p>{error}</p>}
       <List>
         {!isLoading && genres.map((g) => (
