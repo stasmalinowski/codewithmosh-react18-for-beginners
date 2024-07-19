@@ -5,7 +5,7 @@ import { GenreList } from "./components/GenreList"
 import { useState } from "react"
 import { Genre } from "./services/http-service"
 import { PlatformSelector } from "./components/PlatformSelector"
-import { GameQuery, Orderings, OrderingSpec } from "./hooks/useGames"
+import { GameQuery } from "./hooks/useGames"
 import { SortingSelector } from "./components/SortingSelector"
 
 function App() {
