@@ -23,7 +23,7 @@ export const PlatformSelector = ({ selectedPlatform, onSelect }: Props) => {
   return (
     <Menu>
       <MenuButton as={Button} rightIcon={<BsChevronDown />}>
-        {!error && (selectedPlatform ? selectedPlatform.name : "Platforms")}
+        {!error && (selectedPlatform ? `Platform: ${selectedPlatform.name}` : "Platform: All")}
         {error && "An error occured!"}
       </MenuButton>
       <MenuList>
