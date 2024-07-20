@@ -18,7 +18,7 @@ interface Props {
 }
 
 export const PlatformSelector = ({ selectedPlatform, onSelect }: Props) => {
-  const { platforms, error, isLoading } = usePlatforms();
+  const { platforms, error, isLoading } = usePlatforms(true);
 
   return (
     <Menu>

@@ -10,7 +10,7 @@ interface Props{
 }
 
 export const GenreList = ({ onSelect, selectedGenres }: Props) => {
-  const { genres, error, isLoading } = useGenres();
+  const { genres, error, isLoading } = useGenres(true);
   const skeletons: number[] = [];
   for (let i = 0; i < 15; i++) skeletons.push(i);
 
