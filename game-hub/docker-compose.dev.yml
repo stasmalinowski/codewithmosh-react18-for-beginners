@@ -1,0 +1,11 @@
+services:
+  frontend:
+    build:
+      context: ./
+      dockerfile: Dockerfile.dev
+
+    ports:
+      - 8080:80
+    volumes:
+      - ./src:/app/src
+    command: npm run dev
